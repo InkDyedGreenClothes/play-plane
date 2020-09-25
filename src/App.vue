@@ -12,7 +12,7 @@ export default {
   },
   setup() {
     // 定义初始化组件名称
-    const currentViewName = ref("GameView");
+    const currentViewName = ref("StartView");
     // 依赖别的属性的属性
     const CurrentView = computed(() => {
       if (currentViewName.value == "StartView") {

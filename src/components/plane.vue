@@ -8,6 +8,7 @@
       :buttonMode="true"
       @touch="handleTouch"
     >
+   
       <Bullet></Bullet>
     </sprite>
   </container>
@@ -16,13 +17,20 @@
 <script>
 import Bullet from "./bullet";
 import { BigPlane } from "../imgExport/planeImg";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { game } from "../game";
 import { util } from "../utils/util";
 export default {
   components: { Bullet },
   setup() {
     let windowHeight = window.innerHeight;
+    // 定义子弹数组
+    const bulletArr = reactive([
+      {
+        x: 0,
+        y: 128,
+      },
+    ]);
     // 设置飞机默认位置
     let yDefault = windowHeight - 200;
     let xDefault = util.getCenterWidth(128);
@@ -54,7 +62,7 @@ export default {
       game.ticker.add(planeMoveDetaultY);
     });
     onUnmounted(() => {});
-    return { x, y, handleTouch, BigPlane };
+    return { x, y, bulletArr, handleTouch, BigPlane };
   },
 };
 </script>
