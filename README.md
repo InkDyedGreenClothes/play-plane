@@ -1,5 +1,8 @@
 # play-plane
+
+## 项目使用技术
 基于vue3以及pixi.js
+
 ## Project setup
 ```
 npm install
