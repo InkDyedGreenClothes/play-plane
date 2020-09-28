@@ -37,7 +37,6 @@ const renderer = new createRenderer({
   nextSibling() { },
   patchProp(el, key, prevValue, nextValue) {
 
-    // console.log(key);
     switch (key) {
       case 'texture':
         el.texture = Texture.from(nextValue)
@@ -57,7 +56,7 @@ const renderer = new createRenderer({
         break;
     }
   },
-  createComment() { }
+  createComment() {}
 })
 
 export function createApp(rootComponent) {

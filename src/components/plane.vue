@@ -2,67 +2,25 @@
   <container>
     <sprite
       :texture="BigPlane"
-      :x="x"
-      :y="y"
+      :x="planeInfo.x"
+      :y="planeInfo.y"
       :interactive="true"
       :buttonMode="true"
       @touch="handleTouch"
     >
-   
-      <Bullet></Bullet>
     </sprite>
   </container>
 </template>
 
 <script>
-import Bullet from "./bullet";
 import { BigPlane } from "../imgExport/planeImg";
-import { ref, reactive, onMounted, onUnmounted } from "vue";
-import { game } from "../game";
-import { util } from "../utils/util";
+import { usePlane } from "../fn/planeDefault";
 export default {
-  components: { Bullet },
+  components: {},
   setup() {
-    let windowHeight = window.innerHeight;
-    // 定义子弹数组
-    const bulletArr = reactive([
-      {
-        x: 0,
-        y: 128,
-      },
-    ]);
-    // 设置飞机默认位置
-    let yDefault = windowHeight - 200;
-    let xDefault = util.getCenterWidth(128);
-    const x = ref(0);
-    const y = ref(0);
-    // 触摸飞机
-    function handleTouch() {
-      game.ticker.remove(planeMoveDetaultX);
-      game.ticker.remove(planeMoveDetaultY);
-    }
-    // 飞机从上往下飞行
-    const speed = 5;
-    // y 移动
-    function planeMoveDetaultY() {
-      y.value += speed;
-      if (y.value >= yDefault) {
-        game.ticker.remove(planeMoveDetaultY);
-      }
-    }
-    // x 移动
-    function planeMoveDetaultX() {
-      x.value++;
-      if (x.value >= xDefault) {
-        game.ticker.remove(planeMoveDetaultX);
-      }
-    }
-    onMounted(() => {
-      game.ticker.add(planeMoveDetaultX);
-      game.ticker.add(planeMoveDetaultY);
-    });
-    onUnmounted(() => {});
-    return { x, y, bulletArr, handleTouch, BigPlane };
+    const { planeInfo } = usePlane();
+    const handleTouch = planeInfo.handleTouch;
+    return { planeInfo, handleTouch, BigPlane };
   },
 };
 </script>
